@@ -49,6 +49,6 @@ for i in input:
             covers.append(os.path.join(root, filename))
 
 for i in covers:
-    subprocess.call(['cp', '-v', i, out + '/' + i ] )
+    subprocess.call(['cp', '-v', i, output + '/' + i ] )
 
 print 'done.'
