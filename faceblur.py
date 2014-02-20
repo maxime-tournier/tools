@@ -8,7 +8,7 @@ import cv2
 import subprocess
 
 help_message = '''
-usage: facedetect.py [--cascade <cascade_fn>] [--nested-cascade <cascade_fn>] [input image] [output image]
+usage: facedetect.py [--cascade <cascade_fn>] [--nested-cascade <cascade_fn>] input output
 '''
 
 def detect(img, cascade):
