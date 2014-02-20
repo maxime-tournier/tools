@@ -67,14 +67,14 @@ if __name__ == '__main__':
         cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
         sx, sy = x2 - x1, y2 - y1
         
-        ops += 'ellipse {0},{1} {2},{3} 0,360'.format(cx, cy, sx /2 , sy / 2)
+        ops += '-draw "ellipse {0},{1} {2},{3} 0,360"'.format(cx, cy, sx /2 , sy / 2)
 
     # 
     ratio = 10
 
     cmd =  ['convert', src,  
             '\( +clone -scale {0}%  -scale {1}% \)'.format(100.0 / float(ratio), 100 * float(ratio)),
-            '\( +clone -gamma 0 -fill white -draw "' + ops + '" -blur 10x4 \)',
+            '\( +clone -gamma 0 -fill white ' + ops + ' -blur 10x4 \)',
             '-composite',  dst]
 
     subprocess.call( ' '.join(cmd), shell = True  )
