@@ -70,7 +70,7 @@ if __name__ == '__main__':
         ops += '-draw "ellipse {0},{1} {2},{3} 0,360"'.format(cx, cy, sx /2 , sy / 2)
 
     # 
-    ratio = 10
+    ratio = 16
 
     cmd =  ['convert', src,  
             '\( +clone -scale {0}%  -scale {1}% \)'.format(100.0 / float(ratio), 100 * float(ratio)),
