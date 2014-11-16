@@ -17,41 +17,41 @@ lay = QVBoxLayout()
 label = QLabel('Enter a latex formula below:')
 lay.addWidget(label)
 
+# text input
 text = QLineEdit()
 lay.addWidget( text )
 
-
+# pixmap
 scene = QGraphicsScene()
-
 scene.setBackgroundBrush( QBrush( Qt.gray, Qt.SolidPattern))
-
 view = QGraphicsView(scene)
-pix = QPixmap()
-item = QGraphicsPixmapItem(pix)
+
+
+pixmap = QPixmap()
+
+item = QGraphicsPixmapItem(pixmap)
 scene.addItem(item);
 
+
+
 lay.addWidget( view )
-
-
 wid.setLayout( lay )
 win.setCentralWidget( wid )
 
-
+# copy
 but = QPushButton('&Copy')
 but.setShortcut( QKeySequence("CTRL+C"));
-
 lay.addWidget( but )
 
 clip = QClipboard()
 
 def copy():
-    t = text.text()
-    pix = QPixmap(t)
-    clip.setPixmap( pix )
+    global pixmap
+    clip.setPixmap( pixmap )
 
 but.clicked.connect( copy )
 
-
+# latex
 tex = \
 """\\documentclass[tightpage]{{standalone}}
 \\usepackage{{amsmath}}
@@ -64,11 +64,11 @@ tex = \
 \\begin{{document}}
 \\color{{white}}
 \\resizebox{{!}}{{100pt}}{{
-  ${0}$
+${0}$
 }}
 \\end{{document}}"""
 
-
+# TODO background
 def rasterize( formula ):
     from subprocess import Popen, PIPE
     import tempfile
@@ -98,9 +98,10 @@ def rasterize( formula ):
         
 def process():
     formula = text.text()
-    pix = rasterize( formula )
-    if pix:
-        item.setPixmap( pix )
+    global pixmap
+    pixmap = rasterize( formula )
+    if pixmap:
+        item.setPixmap( pixmap )
         view.fitInView( item, Qt.KeepAspectRatio )
     
 text.textChanged.connect( process )
