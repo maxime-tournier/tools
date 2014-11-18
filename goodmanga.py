@@ -22,7 +22,8 @@ def find(what, where):
 
 def get(manga, chapter):
 
-
+    print 'fetching "{0}" chapter: {1}'.format(manga, chapter)
+    
     class Parser(HTMLParser):
         """
         extract img/next links from html
@@ -128,6 +129,7 @@ def get(manga, chapter):
             break
 
 
+    return outdir
 
 def chapters(manga):
     
@@ -148,8 +150,9 @@ def chapters(manga):
             elif tag == 'option' and self.select:
                 value = find('value', attrs)
 
-                chapter = int( value.split('/')[-1] )
-                self.chapters.append( chapter )
+                if value:
+                    chapter = int( value.split('/')[-1] )
+                    self.chapters.append( chapter )
 
                 
         def handle_endtag(self, tag):

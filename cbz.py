@@ -53,6 +53,8 @@ def cbz( directory ):
         cbz = directory + '.cbz'
         subprocess.call(['zip', '-9', '-j', cbz] + tmpfiles)
 
+        return cbz
+    
     finally:
         for f in tmpfiles:
             os.remove( f )
