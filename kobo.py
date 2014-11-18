@@ -14,12 +14,10 @@ def path():
     # TODO check presence, make it portable, etc
     return '/Volumes/KOBOeReader'
 
-def manga(name, chapters = None ):
+def manga(name, chapters ):
     """fetch, assemble and copy manga chapters to kobo"""
 
     # TODO don't redo unneeded stuff
-    
-    chapters = chapters or goodmanga.chapters(name)[-1:]
     
     for c in chapters:
         folder = goodmanga.get( name, c )
@@ -38,12 +36,8 @@ if __name__ == '__main__':
     import sys
 
     name = sys.argv[1]
-
-    if len(sys.argv) > 2:
-        chapters = map(int, sys.argv[2:])
-    else:
-        chapters = None
-        
+    chapters = map(int, sys.argv[2:]) or goodmanga.chapters(name)[-1:]
+    
     manga( name, chapters )
     
         
