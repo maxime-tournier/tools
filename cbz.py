@@ -11,7 +11,7 @@ import subprocess
 
 def cbz( directory ):
     # optimized for kobo glo
-    resolution = (1024, 768)
+    resolution = (768, 1024)
 
     listdir = (os.path.join(directory, f) for f in os.listdir(directory))
     files = (f for f in listdir if os.path.isfile(f))
@@ -42,7 +42,8 @@ def cbz( directory ):
                     height, width = image.shape[:2]
 
                 # scale
-                image = cv2.resize( image, resolution )
+                image = cv2.resize( image, resolution,
+                                    interpolation = cv2.INTER_AREA )
 
                 basename = os.path.split(f)[-1]
 

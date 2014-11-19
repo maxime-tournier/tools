@@ -20,6 +20,7 @@ def manga(name, chapters ):
     # TODO don't redo unneeded stuff
     
     for c in chapters:
+        # folder = os.path.join(name, str(c))
         folder = goodmanga.get( name, c )
         filename = cbz.cbz( folder )
 
@@ -28,15 +29,27 @@ def manga(name, chapters ):
         destdir = path()
         destfile = os.path.join(destdir, name + '.' + basename)
         
-        subprocess.call(['cp', '-v', filename, destfile])
+        subprocess.call(['mv', '-v', filename, destfile])
 
 
 if __name__ == '__main__':
 
-    import sys
+    def parse_args():
+        import argparse
 
-    name = sys.argv[1]
-    chapters = map(int, sys.argv[2:]) or goodmanga.chapters(name)[-1:]
+        parser = argparse.ArgumentParser(description='put stuff on your kobo !')
+        parser.add_argument('--manga', help='fetch, assemble and copy a manga')
+        parser.add_argument('--chapters', default = None, type = int, nargs = '+',
+                            help='manga chapter, fetch last chapter if omitted')
+        
+        return parser.parse_args()
+
+    args = parse_args()
+    
+    name = args.manga
+    chapters = args.chapters or goodmanga.chapters(name)[-1:]
+
+    print chapters
     
     manga( name, chapters )
     
