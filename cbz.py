@@ -55,6 +55,11 @@ def cbz( directory ):
         subprocess.call(['zip', '-9', '-j', cbz] + tmpfiles)
 
         return cbz
+
+    except:
+        print 'failed to process ', f, '(copied to /tmp/fail)'
+        subprocess.call(['cp', '-v', f, '/tmp/fail'])
+        raise
     
     finally:
         for f in tmpfiles:

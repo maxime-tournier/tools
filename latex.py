@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 
 
 import PySide
@@ -62,7 +62,7 @@ tex = \
 \\usepackage{{varwidth}}
 %
 \\begin{{document}}
-\\color{{white}}
+\\color{{blue}}
 \\resizebox{{!}}{{100pt}}{{
 ${0}$
 }}
@@ -99,6 +99,7 @@ def rasterize( formula ):
 def process():
     formula = text.text()
     global pixmap
+    
     pixmap = rasterize( formula )
     if pixmap:
         item.setPixmap( pixmap )
